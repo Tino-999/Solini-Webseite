@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Stunde einstellen</title>
+    <!-- Einbindung der externen CSS-Datei -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Externe Bibliotheken -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://www.unpkg.com/suncalc@1.9.0/suncalc.js"></script>
+    <script src="https://unpkg.com/osmtogeojson/osmtogeojson.js"></script>
+    <script src="../dist/leaflet-shadow-simulator.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+
+<body>
+    <div id="mapid"></div>
+
+    <div class="leaflet-control-container">
+        <!-- Ihre weiteren HTML-Elemente -->
+    </div>
+
+    <div class="top-bar">
+        <div class="input-group">
+            <input type="date" id="date-picker" class="date-time-input">
+            <select id="time-picker" class="select-input">
+                <!-- Ihre Optionen -->
+                <!-- ... (belassen Sie hier Ihre ursprünglichen Optionen) -->
+            </select>
+            <input type="text" id="location-search" class="text-input" placeholder="Location, Restaurant, or Cuisine">
+            <button id="search-button" class="search-button">Let's go</button>
+            <button id="decrement-hour" class="search-button">-1 Stunde</button>
+            <button id="increment-hour" class="search-button">+1 Stunde</button>
+        </div>
+    </div>
+
+    <!-- Einbindung der externen JavaScript-Datei -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>
