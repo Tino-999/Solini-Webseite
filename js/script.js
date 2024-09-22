@@ -1,3 +1,4 @@
+let now = new Date();
 /* Leaflet setup */
 var map = L.map("mapid", { zoomControl: true }).setView([48.13031436327439, 11.58350715686779], 17);
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -24,7 +25,7 @@ var shadeMapApiKey = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRpbm9zY2h1bGR0MTAwQGdtY
 let shadeMap;
 try {
     const loaderEl = document.getElementById('loader');
-    let now = new Date();
+    now = new Date();
 
     shadeMap = L.shadeMap({
         apiKey: shadeMapApiKey,
