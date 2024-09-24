@@ -207,6 +207,22 @@ document.getElementById('increment-hour').addEventListener('click', () => {
 document.getElementById('decrement-hour').addEventListener('click', () => {
     now = new Date(now.getTime() - 3600000); // Eine Stunde abziehen
     updateMapShadow(now.getHours());
+});    
+/**
+    * Event Listener für die Stunde erhöhen
+    */
+   document.getElementById('increment-hour').addEventListener('touchstart', () => {
+       now = new Date(now.getTime() + 3600000); // Eine Stunde hinzufügen
+       updateMapShadow(now.getHours());
+       updateTimePicker(); // Uhrzeitpicker aktualisieren
+   });
+   
+   /**
+    * Event Listener für die Stunde verringern
+    */
+   document.getElementById('decrement-hour').addEventListener('touchstart', () => {
+       now = new Date(now.getTime() - 3600000); // Eine Stunde abziehen
+       updateMapShadow(now.getHours());    
     updateTimePicker(); // Uhrzeitpicker aktualisieren
 });
 
@@ -237,6 +253,44 @@ document.getElementById('date-picker').addEventListener('change', function(event
  */
 document.getElementById('search-button').addEventListener('click', function() {
     var location = document.getElementById('location-search').value;
+
+
+    if (location) {
+        // Verwende eine Geocoding API, um die Adresse in Koordinaten umzuwandeln
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.length > 0) {
+                    var lat = parseFloat(data[0].lat);
+                    var lon = parseFloat(data[0].lon);
+                    // Zentriere die Karte auf die gefundenen Koordinaten
+                    map.setView(new L.LatLng(lat, lon), 18);
+
+                    // Füge einen Marker auf der Karte hinzu
+                    L.marker([lat, lon]).addTo(map)
+                        .bindPopup(`<b>${location}</b>`).openPopup();
+
+                    // Aktualisiere die Sonnenzeiten basierend auf der neuen Position
+                    updateSunTimes();
+
+                    // Optional: Aktualisiere den Uhrzeitpicker (falls sich die Zeit ändern sollte)
+                    updateTimePicker();
+                } else {
+                    alert('Ort nicht gefunden.');
+                }
+            })
+            .catch(error => {
+                console.error('Fehler bei der Suche:', error);
+                alert('Es gab ein Problem bei der Suche nach dem Ort.');
+            });
+    } else {
+        alert('Bitte geben Sie einen Ort ein.');
+    }
+});
+
+document.getElementById('search-button').addEventListener('touchstart', function() {
+    var location = document.getElementById('location-search').value;
+
 
     if (location) {
         // Verwende eine Geocoding API, um die Adresse in Koordinaten umzuwandeln
